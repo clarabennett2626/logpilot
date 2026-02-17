@@ -1,0 +1,4 @@
+logpilot
+*.exe
+dist/
+.DS_Store

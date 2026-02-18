@@ -1,7 +1,7 @@
 # LogPilot 🧭
 
 [![CI](https://github.com/clarabennett2626/logpilot/actions/workflows/ci.yml/badge.svg)](https://github.com/clarabennett2626/logpilot/actions/workflows/ci.yml)
-[![Release](https://github.com/clarabennett2626/logpilot/releases/latest/badge.svg)](https://github.com/clarabennett2626/logpilot/releases/latest)
+[![Release](https://img.shields.io/github/v/release/clarabennett2626/logpilot)](https://github.com/clarabennett2626/logpilot/releases/latest)
 [![Go Report Card](https://goreportcard.com/badge/github.com/clarabennett2626/logpilot)](https://goreportcard.com/report/github.com/clarabennett2626/logpilot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 

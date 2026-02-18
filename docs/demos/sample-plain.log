@@ -1,0 +1,12 @@
+2026-02-17 20:00:01 INFO  Application starting up
+2026-02-17 20:00:02 INFO  Loading configuration from /etc/app/config.yaml
+2026-02-17 20:00:02 INFO  Database migration: 3 pending
+2026-02-17 20:00:03 INFO  Running migration 042_add_user_index
+2026-02-17 20:00:04 INFO  Running migration 043_add_audit_table
+2026-02-17 20:00:05 INFO  Running migration 044_add_notifications
+2026-02-17 20:00:05 INFO  All migrations completed successfully
+2026-02-17 20:01:00 DEBUG Request received: GET /health
+2026-02-17 20:01:30 WARN  Disk usage at 82% on /var/data
+2026-02-17 20:02:00 ERROR Failed to send notification: smtp timeout
+2026-02-17 20:02:15 ERROR Retrying notification send (attempt 2/3)
+2026-02-17 20:02:30 INFO  Notification sent successfully on retry

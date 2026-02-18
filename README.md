@@ -9,6 +9,8 @@
 
 Stream, search, and correlate logs from files, Kubernetes, Docker, SSH, and more — all in one TUI.
 
+![LogPilot Demo](docs/demos/demo-json.gif)
+
 ## Features
 
 ### ✅ Implemented
@@ -71,6 +73,9 @@ logpilot -f /var/log/app.log
 
 # Pipe from another command
 kubectl logs -f my-pod | logpilot
+
+# Streaming demo
+![Pipe demo](docs/demos/demo-pipe.gif)
 docker logs -f my-container | logpilot
 cat /var/log/syslog | logpilot
 
@@ -83,16 +88,25 @@ logpilot /var/log/*.log
 LogPilot auto-detects the format from the first few lines:
 
 ### JSON
+
+![JSON logs](docs/demos/demo-json.gif)
+
 ```json
 {"timestamp":"2026-02-17T20:30:00Z","level":"error","message":"connection timeout","service":"api","latency_ms":1523}
 ```
 
 ### Logfmt
+
+![Logfmt logs](docs/demos/demo-logfmt.gif)
+
 ```
 ts=2026-02-17T20:30:00Z level=error msg="connection timeout" service=api latency_ms=1523
 ```
 
 ### Plain Text
+
+![Plain text logs](docs/demos/demo-plain.gif)
+
 ```
 2026-02-17 20:30:00 ERROR connection timeout
 Feb 17 20:30:00 myhost app[1234]: connection timeout

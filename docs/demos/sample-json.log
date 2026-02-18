@@ -1,0 +1,15 @@
+{"timestamp":"2026-02-17T20:00:01Z","level":"info","message":"Server starting on :8080","service":"api","version":"1.2.3"}
+{"timestamp":"2026-02-17T20:00:02Z","level":"info","message":"Connected to PostgreSQL","service":"api","host":"db.internal:5432"}
+{"timestamp":"2026-02-17T20:00:02Z","level":"info","message":"Redis connection pool initialized","service":"api","pool_size":10}
+{"timestamp":"2026-02-17T20:00:03Z","level":"info","message":"Loading middleware: auth, cors, ratelimit","service":"api"}
+{"timestamp":"2026-02-17T20:00:05Z","level":"info","message":"Ready to accept connections","service":"api","workers":8}
+{"timestamp":"2026-02-17T20:01:12Z","level":"info","message":"GET /api/v1/users 200 12ms","service":"api","method":"GET","path":"/api/v1/users","status":200,"latency_ms":12}
+{"timestamp":"2026-02-17T20:01:15Z","level":"debug","message":"Cache hit for user:1234","service":"api","cache":"redis","key":"user:1234"}
+{"timestamp":"2026-02-17T20:01:18Z","level":"info","message":"POST /api/v1/orders 201 45ms","service":"api","method":"POST","path":"/api/v1/orders","status":201,"latency_ms":45}
+{"timestamp":"2026-02-17T20:02:30Z","level":"warn","message":"Slow query detected","service":"api","query":"SELECT * FROM orders WHERE...","duration_ms":850}
+{"timestamp":"2026-02-17T20:02:45Z","level":"warn","message":"Rate limit approaching for client 10.0.1.50","service":"api","client_ip":"10.0.1.50","remaining":5}
+{"timestamp":"2026-02-17T20:03:01Z","level":"error","message":"Connection refused to payment service","service":"api","target":"payments:443","retry":1}
+{"timestamp":"2026-02-17T20:03:03Z","level":"error","message":"Connection refused to payment service","service":"api","target":"payments:443","retry":2}
+{"timestamp":"2026-02-17T20:03:05Z","level":"error","message":"Payment service unavailable after 3 retries","service":"api","target":"payments:443","retry":3}
+{"timestamp":"2026-02-17T20:03:05Z","level":"fatal","message":"Critical dependency down — entering degraded mode","service":"api","dependency":"payments"}
+{"timestamp":"2026-02-17T20:03:10Z","level":"warn","message":"Health check reporting degraded","service":"api","healthy_deps":3,"total_deps":4}

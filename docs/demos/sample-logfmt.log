@@ -1,0 +1,10 @@
+ts=2026-02-17T20:00:01Z level=info msg="Starting worker pool" workers=4 queue=jobs
+ts=2026-02-17T20:00:02Z level=info msg="Connected to message broker" broker=rabbitmq host=mq.internal:5672
+ts=2026-02-17T20:01:00Z level=info msg="Processing job" job_id=j-8821 type=email_send queue=jobs
+ts=2026-02-17T20:01:01Z level=debug msg="Template rendered" job_id=j-8821 template=welcome_email render_ms=3
+ts=2026-02-17T20:01:02Z level=info msg="Job completed" job_id=j-8821 duration_ms=2100 status=success
+ts=2026-02-17T20:01:30Z level=info msg="Processing job" job_id=j-8822 type=image_resize queue=media
+ts=2026-02-17T20:01:35Z level=warn msg="Image resize took longer than expected" job_id=j-8822 duration_ms=5200 threshold_ms=3000
+ts=2026-02-17T20:02:00Z level=error msg="Job failed: invalid image format" job_id=j-8823 type=image_resize error="unsupported format: webp"
+ts=2026-02-17T20:02:01Z level=info msg="Retrying job" job_id=j-8823 attempt=2 max_attempts=3
+ts=2026-02-17T20:02:10Z level=error msg="Job permanently failed" job_id=j-8823 attempts=3 moved_to=dead_letter

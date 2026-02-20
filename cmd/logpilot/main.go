@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
+	"strings"
 	"syscall"
 
 	tea "github.com/charmbracelet/bubbletea"
@@ -34,11 +35,49 @@ func main() {
 		return
 	}
 
-	p := tea.NewProgram(tui.NewModel(), tea.WithAltScreen())
-	if _, err := p.Run(); err != nil {
+	// TUI mode — files given as args.
+	files := os.Args[1:]
+	if err := runTUIMode(files); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)
 		os.Exit(1)
 	}
+}
+
+// runTUIMode starts the interactive TUI with file sources.
+func runTUIMode(files []string) error {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	sourceName := "no source"
+	var src source.Source
+
+	if len(files) > 0 {
+		sourceName = strings.Join(files, ", ")
+		fileSrc := source.NewFileSource(source.FileConfig{
+			Patterns:  files,
+			TailLines: 1000,
+		})
+		if err := fileSrc.Start(ctx); err != nil {
+			return fmt.Errorf("starting file source: %w", err)
+		}
+		defer fileSrc.Stop()
+		src = fileSrc
+	}
+
+	model := tui.NewModelWithSource(src, sourceName)
+	p := tea.NewProgram(model, tea.WithAltScreen())
+
+	// Wire source lines into the TUI via Program.Send.
+	if src != nil {
+		autoParser := parser.NewAutoParser()
+		renderer := tui.NewRenderer(tui.DefaultConfig())
+		tui.ListenForLines(src, autoParser, renderer, p)
+	}
+
+	if _, err := p.Run(); err != nil {
+		return err
+	}
+	return nil
 }
 
 // runPipeMode reads from stdin, parses each line, and renders output to stdout.

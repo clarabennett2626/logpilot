@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/clarabennett2626/logpilot/internal/parser"
 )
 
 func setupModel(width, height int, lines int) Model {
@@ -66,26 +67,28 @@ func TestMaxOffsetFewLines(t *testing.T) {
 func TestScrollDown(t *testing.T) {
 	m := setupModel(80, 24, 100)
 	m.offset = 0
+	m.cursor = 0
 	m.autoScroll = false
 
 	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("j")})
 	m = updated.(Model)
 
-	if m.offset != 1 {
-		t.Errorf("offset = %d, want 1 after scroll down", m.offset)
+	if m.cursor != 1 {
+		t.Errorf("cursor = %d, want 1 after scroll down", m.cursor)
 	}
 }
 
 func TestScrollUp(t *testing.T) {
 	m := setupModel(80, 24, 100)
+	m.cursor = 10
 	m.offset = 10
 	m.autoScroll = false
 
 	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("k")})
 	m = updated.(Model)
 
-	if m.offset != 9 {
-		t.Errorf("offset = %d, want 9 after scroll up", m.offset)
+	if m.cursor != 9 {
+		t.Errorf("cursor = %d, want 9 after scroll up", m.cursor)
 	}
 }
 
@@ -261,6 +264,7 @@ func TestViewWithLines(t *testing.T) {
 func TestAutoScrollReenableAtBottom(t *testing.T) {
 	m := setupModel(80, 24, 100)
 	m.autoScroll = false
+	m.cursor = len(m.lines) - 2
 	m.offset = m.maxOffset() - 1
 
 	// Scroll down to bottom.
@@ -282,6 +286,95 @@ func TestErrMsg(t *testing.T) {
 	}
 	if !contains(m.lines[0], "test error") {
 		t.Errorf("error line = %q, should contain 'test error'", m.lines[0])
+	}
+}
+
+func TestDetailPaneToggle(t *testing.T) {
+	m := setupModel(80, 24, 10)
+	m.cursor = 3
+	// Add parallel entries.
+	m.entries = make([]parser.LogEntry, 10)
+	for i := 0; i < 10; i++ {
+		m.entries[i] = parser.LogEntry{
+			Level:   "info",
+			Message: fmt.Sprintf("line %d", i),
+			Fields:  map[string]string{"key": fmt.Sprintf("val%d", i)},
+			Format:  parser.FormatJSON,
+		}
+	}
+
+	// Press Enter to show detail.
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyEnter})
+	m = updated.(Model)
+	if !m.showDetail {
+		t.Error("expected showDetail=true after Enter")
+	}
+
+	// Press Enter again to hide.
+	updated, _ = m.Update(tea.KeyMsg{Type: tea.KeyEnter})
+	m = updated.(Model)
+	if m.showDetail {
+		t.Error("expected showDetail=false after second Enter")
+	}
+}
+
+func TestDetailPaneEsc(t *testing.T) {
+	m := setupModel(80, 24, 10)
+	m.entries = make([]parser.LogEntry, 10)
+	m.showDetail = true
+
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyEscape})
+	m = updated.(Model)
+	if m.showDetail {
+		t.Error("expected showDetail=false after Esc")
+	}
+}
+
+func TestCursorClamp(t *testing.T) {
+	m := setupModel(80, 24, 5)
+	m.cursor = 4
+	m.autoScroll = false
+
+	// Press j — should clamp at 4.
+	updated, _ := m.Update(tea.KeyMsg{Type: tea.KeyRunes, Runes: []rune("j")})
+	m = updated.(Model)
+	if m.cursor != 4 {
+		t.Errorf("cursor = %d, want 4 (clamped at last line)", m.cursor)
+	}
+}
+
+func TestViewWithDetailPane(t *testing.T) {
+	m := setupModel(80, 24, 10)
+	m.entries = make([]parser.LogEntry, 10)
+	for i := 0; i < 10; i++ {
+		m.entries[i] = parser.LogEntry{
+			Level:   "info",
+			Message: fmt.Sprintf("msg %d", i),
+			Fields:  map[string]string{"host": "server1"},
+			Format:  parser.FormatJSON,
+		}
+	}
+	m.cursor = 2
+	m.showDetail = true
+
+	v := m.View()
+	if v == "" {
+		t.Error("View() should not be empty with detail pane")
+	}
+	if !contains(v, "Detail") {
+		t.Error("View() should contain detail pane header")
+	}
+	if !contains(v, "host") {
+		t.Error("View() should show field keys in detail pane")
+	}
+}
+
+func TestFilterTextInStatusBar(t *testing.T) {
+	m := setupModel(80, 24, 5)
+	m.filterText = "error"
+	v := m.View()
+	if !contains(v, "Filter") {
+		t.Error("status bar should show filter info when filterText is set")
 	}
 }
 

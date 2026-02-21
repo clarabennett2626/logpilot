@@ -9,9 +9,9 @@ import (
 	"syscall"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/clarabennett2626/logpilot/internal/parser"
-	"github.com/clarabennett2626/logpilot/internal/source"
-	"github.com/clarabennett2626/logpilot/internal/tui"
+	"github.com/clarabennettdev/logpilot/internal/parser"
+	"github.com/clarabennettdev/logpilot/internal/source"
+	"github.com/clarabennettdev/logpilot/internal/tui"
 )
 
 var (

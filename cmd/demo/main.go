@@ -8,8 +8,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/clarabennett2626/logpilot/internal/parser"
-	"github.com/clarabennett2626/logpilot/internal/tui"
+	"github.com/clarabennettdev/logpilot/internal/parser"
+	"github.com/clarabennettdev/logpilot/internal/tui"
 )
 
 func main() {

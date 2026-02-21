@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/clarabennett2626/logpilot/internal/parser"
+	"github.com/clarabennettdev/logpilot/internal/parser"
 )
 
 func setupModel(width, height int, lines int) Model {

@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/clarabennett2626/logpilot/internal/parser"
+	"github.com/clarabennettdev/logpilot/internal/parser"
 )
 
 var fixedNow = time.Date(2026, 2, 17, 20, 0, 0, 0, time.UTC)

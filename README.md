@@ -1,9 +1,9 @@
 # LogPilot 🪵
 
-[![CI](https://github.com/clarabennett2626/logpilot/actions/workflows/ci.yml/badge.svg)](https://github.com/clarabennett2626/logpilot/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/clarabennett2626/logpilot)](https://github.com/clarabennett2626/logpilot/releases/latest)
-[![Go Report Card](https://goreportcard.com/badge/github.com/clarabennett2626/logpilot)](https://goreportcard.com/report/github.com/clarabennett2626/logpilot)
-[![Go Reference](https://pkg.go.dev/badge/github.com/clarabennett2626/logpilot.svg)](https://pkg.go.dev/github.com/clarabennett2626/logpilot)
+[![CI](https://github.com/clarabennettdev/logpilot/actions/workflows/ci.yml/badge.svg)](https://github.com/clarabennettdev/logpilot/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/clarabennettdev/logpilot)](https://github.com/clarabennettdev/logpilot/releases/latest)
+[![Go Report Card](https://goreportcard.com/badge/github.com/clarabennettdev/logpilot)](https://goreportcard.com/report/github.com/clarabennettdev/logpilot)
+[![Go Reference](https://pkg.go.dev/badge/github.com/clarabennettdev/logpilot.svg)](https://pkg.go.dev/github.com/clarabennettdev/logpilot)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 **A multi-source structured log viewer for the terminal.** Tail files, pipe from Docker/kubectl, mix JSON and logfmt and plain text — all in one interactive TUI.
@@ -65,21 +65,21 @@ logpilot services/*.log /var/log/syslog
 ### Go install (requires Go 1.22+)
 
 ```bash
-go install github.com/clarabennett2626/logpilot@latest
+go install github.com/clarabennettdev/logpilot@latest
 ```
 
 ### Binary download
 
-Grab a prebuilt binary from [Releases](https://github.com/clarabennett2626/logpilot/releases/latest):
+Grab a prebuilt binary from [Releases](https://github.com/clarabennettdev/logpilot/releases/latest):
 
 ```bash
 # Linux (amd64)
-curl -LO https://github.com/clarabennett2626/logpilot/releases/download/v0.1.0/logpilot_linux_amd64.tar.gz
+curl -LO https://github.com/clarabennettdev/logpilot/releases/download/v0.3.0/logpilot_linux_amd64.tar.gz
 tar xzf logpilot_linux_amd64.tar.gz
 sudo mv logpilot /usr/local/bin/
 
 # macOS (Apple Silicon)
-curl -LO https://github.com/clarabennett2626/logpilot/releases/download/v0.1.0/logpilot_darwin_arm64.tar.gz
+curl -LO https://github.com/clarabennettdev/logpilot/releases/download/v0.3.0/logpilot_darwin_arm64.tar.gz
 tar xzf logpilot_darwin_arm64.tar.gz
 sudo mv logpilot /usr/local/bin/
 
@@ -90,7 +90,7 @@ sudo mv logpilot /usr/local/bin/
 ### From source
 
 ```bash
-git clone https://github.com/clarabennett2626/logpilot.git
+git clone https://github.com/clarabennettdev/logpilot.git
 cd logpilot
 go build -o logpilot ./cmd/logpilot
 ```

@@ -1,4 +1,4 @@
-module github.com/clarabennett2626/logpilot
+module github.com/clarabennettdev/logpilot
 
 go 1.24.2
 

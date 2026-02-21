@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/charmbracelet/lipgloss"
-	"github.com/clarabennett2626/logpilot/internal/parser"
+	"github.com/clarabennettdev/logpilot/internal/parser"
 )
 
 // TimestampFormat controls how timestamps are displayed.

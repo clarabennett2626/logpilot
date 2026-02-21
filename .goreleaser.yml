@@ -20,5 +20,5 @@ checksum:
 
 release:
   github:
-    owner: clarabennett2626
+    owner: clarabennettdev
     name: logpilot
